@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/core/widgets/brand_name.dart';
+import 'package:ecommerce_app/features/onboarding/views/country_selector_view.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -23,7 +25,11 @@ class _SplashViewState extends State<SplashView>
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 1), () {
-      // Navigator.pushReplacementNamed(context, '/home');
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => CountryView()),
+      );
     });
   }
 
@@ -39,17 +45,7 @@ class _SplashViewState extends State<SplashView>
       backgroundColor: Colors.black,
       body: FadeTransition(
         opacity: _animation,
-        child: Center(
-          child: Text(
-            "LUXE",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2,
-            ),
-          ),
-        ),
+        child: Center(child: BrandName(fontSize: 40)),
       ),
     );
   }
