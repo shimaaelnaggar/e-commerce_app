@@ -56,6 +56,7 @@ class _CountryViewState extends State<CountryView> {
               onTap: () {
                 setState(() {
                   selectedCountry = country;
+                  showError = false;
                 });
                 Navigator.pop(context);
               },

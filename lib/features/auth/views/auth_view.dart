@@ -67,6 +67,8 @@ class _AuthViewState extends State<AuthView> {
                       label: "Name",
                       hint: "Enter your name",
                       controller: nameController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.name,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter your name";
@@ -79,6 +81,8 @@ class _AuthViewState extends State<AuthView> {
                     label: "Email",
                     hint: "Enter your email",
                     controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Email is required";
@@ -101,6 +105,8 @@ class _AuthViewState extends State<AuthView> {
                     hint: "Enter your password",
                     controller: passwordController,
                     obscureText: isPasswordHidden,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
                     suffixIcon: IconButton(
                       icon: Icon(
                         isPasswordHidden
@@ -139,6 +145,8 @@ class _AuthViewState extends State<AuthView> {
                       label: "Confirm Password",
                       hint: "Re-enter your password",
                       obscureText: isConfirmPasswordHidden,
+                      keyboardType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.done,
                       suffixIcon: IconButton(
                         icon: Icon(
                           isConfirmPasswordHidden

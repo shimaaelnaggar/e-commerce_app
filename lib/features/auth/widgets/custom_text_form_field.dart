@@ -55,17 +55,13 @@ class CustomTextFormField extends StatelessWidget {
               label: Text(
                 label,
                 style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey[200],
+                  fontSize: 14,
+                  // fontWeight: FontWeight.w700,
+                  color: Colors.white,
                 ),
               ),
               hintText: hint,
-              hintStyle: TextStyle(
-                color: Colors.grey[200],
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
-              ),
+              hintStyle: TextStyle(color: Colors.grey[300], fontSize: 9),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 2),
               ),
