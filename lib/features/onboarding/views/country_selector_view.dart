@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/core/widgets/brand_name.dart';
+import 'package:ecommerce_app/core/widgets/custom_button.dart';
+import 'package:ecommerce_app/features/auth/views/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,7 +13,7 @@ class CountryView extends StatefulWidget {
 
 class _CountryViewState extends State<CountryView> {
   String? selectedCountry;
-
+  bool showError = false;
   final List<String> countries = [
     "Egypt",
     "Saudi Arabia",
@@ -20,7 +22,12 @@ class _CountryViewState extends State<CountryView> {
   ];
 
   Future<void> saveCountry() async {
-    if (selectedCountry == null) return;
+    if (selectedCountry == null) {
+      setState(() {
+        showError = true;
+      });
+      return;
+    }
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("country", selectedCountry!);
@@ -29,7 +36,7 @@ class _CountryViewState extends State<CountryView> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const Placeholder()),
+      MaterialPageRoute(builder: (_) => const AuthView()),
     );
   }
 
@@ -64,7 +71,6 @@ class _CountryViewState extends State<CountryView> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
           buildBackground(),
 
           buildOverlay(),
@@ -83,17 +89,10 @@ class _CountryViewState extends State<CountryView> {
 
                   SizedBox(
                     width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
+                    height: 45,
+                    child: CustomButton(
                       onPressed: saveCountry,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: const Text("Continue"),
+                      text: "Continue",
                     ),
                   ),
                 ],
@@ -111,8 +110,8 @@ class _CountryViewState extends State<CountryView> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: showError ? Colors.red : Colors.white),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,7 +146,7 @@ class _CountryViewState extends State<CountryView> {
   SizedBox buildBackground() {
     return SizedBox.expand(
       child: Image.network(
-        "https://th.bing.com/th/id/OIG2.FmWwko.EfA4VFdpjxZsU?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+        "https://th.bing.com/th/id/OIG3.M5KMi18fNFwQlFeHB8BL?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
         fit: BoxFit.cover,
       ),
     );

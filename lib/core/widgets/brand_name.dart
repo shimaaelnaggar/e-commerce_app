@@ -8,7 +8,7 @@ class BrandName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "LUXE",
+      "VELORA",
       style: TextStyle(
         color: Colors.white,
         fontSize: fontSize,
