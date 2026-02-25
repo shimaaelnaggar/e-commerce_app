@@ -8,8 +8,8 @@ class CustomTextFormField extends StatelessWidget {
   final String hint;
   final bool obscureText;
   final TextEditingController? controller;
-  final IconButton? suffixIcon;
-  final IconButton? prefixIcon;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final List<TextInputFormatter>? inputFormatters;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
@@ -38,14 +38,6 @@ class CustomTextFormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[200],
-            ),
-          ),
           const SizedBox(height: 5),
           TextFormField(
             controller: controller,
@@ -60,6 +52,14 @@ class CustomTextFormField extends StatelessWidget {
             decoration: InputDecoration(
               suffixIcon: suffixIcon,
               prefixIcon: prefixIcon,
+              label: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[200],
+                ),
+              ),
               hintText: hint,
               hintStyle: TextStyle(
                 color: Colors.grey[200],

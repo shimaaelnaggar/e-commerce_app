@@ -13,6 +13,9 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   bool isLogin = true;
+  bool isPasswordHidden = true;
+  bool isConfirmPasswordHidden = true;
+  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -27,10 +30,12 @@ class _AuthViewState extends State<AuthView> {
   }
 
   void _submit() {
-    if (isLogin) {
-      print("Login");
-    } else {
-      print("Create Account");
+    if (_formKey.currentState!.validate()) {
+      if (isLogin) {
+        print("Login");
+      } else {
+        print("Create Account");
+      }
     }
   }
 
@@ -41,71 +46,151 @@ class _AuthViewState extends State<AuthView> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 20),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20),
 
-                Center(child: BrandName(fontSize: 28)),
+                  Center(child: BrandName(fontSize: 28)),
 
-                const SizedBox(height: 40),
+                  const SizedBox(height: 40),
 
-                buildToggle(),
+                  buildToggle(),
 
-                const SizedBox(height: 30),
+                  const SizedBox(height: 30),
 
-                if (!isLogin)
+                  if (!isLogin)
+                    CustomTextFormField(
+                      label: "Name",
+                      hint: "Enter your name",
+                      controller: nameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter your name";
+                        }
+                        return null;
+                      },
+                    ),
+                  // if (!isLogin) const SizedBox(height: 16),
                   CustomTextFormField(
-                    label: "Name",
-                    hint: "Enter your name",
-                    controller: nameController,
+                    label: "Email",
+                    hint: "Enter your email",
+                    controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Please enter your name";
+                        return "Email is required";
                       }
+
+                      final emailRegex = RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      );
+
+                      if (!emailRegex.hasMatch(value)) {
+                        return "Enter a valid email address";
+                      }
+
                       return null;
                     },
                   ),
-                // if (!isLogin) const SizedBox(height: 16),
-                CustomTextFormField(
-                  label: "Email",
-                  hint: "Enter your email",
-                  controller: emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter your email";
-                    }
-                    return null;
-                  },
-                ),
 
-                CustomTextFormField(
-                  label: "Password",
-                  hint: "Enter your password",
-                  controller: passwordController,
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter your password";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 30),
+                  CustomTextFormField(
+                    label: "Password",
+                    hint: "Enter your password",
+                    controller: passwordController,
+                    obscureText: isPasswordHidden,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        isPasswordHidden
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Colors.grey[400],
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isPasswordHidden = !isPasswordHidden;
+                        });
+                      },
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Password is required";
+                      }
 
-                SizedBox(
-                  height: 45,
-                  child: CustomButton(
-                    onPressed: _submit,
-                    text: isLogin ? "Login" : "Create Account",
+                      if (value.length < 6) {
+                        return "Password must be at least 6 characters";
+                      }
+
+                      if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                        return "Password must contain at least one uppercase letter";
+                      }
+
+                      if (!RegExp(r'[0-9]').hasMatch(value)) {
+                        return "Password must contain at least one number";
+                      }
+
+                      return null;
+                    },
                   ),
-                ),
+                  if (!isLogin)
+                    CustomTextFormField(
+                      label: "Confirm Password",
+                      hint: "Re-enter your password",
+                      obscureText: isConfirmPasswordHidden,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isConfirmPasswordHidden
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey[400],
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isConfirmPasswordHidden = !isConfirmPasswordHidden;
+                          });
+                        },
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please confirm your password";
+                        }
 
-                const SizedBox(height: 20),
+                        if (value != passwordController.text) {
+                          return "Passwords do not match";
+                        }
 
-                buildSocialButtons(),
-              ],
+                        return null;
+                      },
+                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+
+                  SizedBox(
+                    height: 45,
+                    child: CustomButton(
+                      onPressed: _submit,
+                      text: isLogin ? "Login" : "Create Account",
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  buildSocialButtons(),
+                ],
+              ),
             ),
           ),
         ),
