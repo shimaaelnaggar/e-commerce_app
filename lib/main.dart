@@ -1,7 +1,10 @@
+import 'package:ecommerce_app/core/helpers/shared_pref.dart';
 import 'package:ecommerce_app/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefsHelper.init();
   runApp(const MyApp());
 }
 

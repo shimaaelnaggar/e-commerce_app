@@ -14,7 +14,10 @@ class CustomButton extends StatelessWidget {
         foregroundColor: Colors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       ),
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+      ),
     );
   }
 }

@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
+import 'package:ecommerce_app/core/helpers/shared_pref.dart';
 import 'package:ecommerce_app/core/widgets/brand_name.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
+import 'package:ecommerce_app/features/auth/cubit/auth_cubit.dart';
 import 'package:ecommerce_app/features/auth/views/auth_view.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CountryView extends StatefulWidget {
   const CountryView({super.key});
@@ -29,14 +32,18 @@ class _CountryViewState extends State<CountryView> {
       return;
     }
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("country", selectedCountry!);
+    await SharedPrefsHelper.setString("country", selectedCountry!);
 
     if (!mounted) return;
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const AuthView()),
+      MaterialPageRoute(
+        builder: (_) => BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(Dio()),
+          child: const AuthView(),
+        ),
+      ),
     );
   }
 

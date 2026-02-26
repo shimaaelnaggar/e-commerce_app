@@ -49,6 +49,8 @@ class CustomTextFormField extends StatelessWidget {
             keyboardType: keyboardType,
             textInputAction: textInputAction,
             autocorrect: true,
+            cursorColor: Colors.white,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
             decoration: InputDecoration(
               suffixIcon: suffixIcon,
               prefixIcon: prefixIcon,
@@ -61,7 +63,7 @@ class CustomTextFormField extends StatelessWidget {
                 ),
               ),
               hintText: hint,
-              hintStyle: TextStyle(color: Colors.grey[300], fontSize: 9),
+              hintStyle: TextStyle(color: Colors.grey[400], fontSize: 9),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 2),
               ),
