@@ -1,15 +1,19 @@
 import 'package:ecommerce_app/core/helpers/shared_pref.dart';
-import 'package:ecommerce_app/features/splash/views/splash_view.dart';
+import 'package:ecommerce_app/core/routing/app_router.dart';
+import 'package:ecommerce_app/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefsHelper.init();
-  runApp(const MyApp());
+  final token = SharedPrefsHelper.getString('token');
+  runApp(MyApp(isLoggedIn: token != null));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   // This widget is the root of your application.
   @override
@@ -17,8 +21,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'VELORA',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: SplashView(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      onGenerateRoute: (settings) => AppRouter().generateRoute(settings),
+      initialRoute: isLoggedIn ? Routes.home : Routes.splash,
     );
   }
 }

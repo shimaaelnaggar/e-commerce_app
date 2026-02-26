@@ -1,7 +1,6 @@
+import 'package:ecommerce_app/core/routing/routes.dart';
 import 'package:ecommerce_app/core/widgets/brand_name.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
-import 'package:ecommerce_app/features/home/cubit/home_cubit.dart';
-import 'package:ecommerce_app/features/home/views/home_view.dart';
 import 'package:ecommerce_app/features/auth/cubit/auth_cubit.dart';
 import 'package:ecommerce_app/features/auth/widgets/custom_text_form_field.dart';
 import 'package:ecommerce_app/features/auth/widgets/toggle_button.dart';
@@ -61,14 +60,9 @@ class _AuthViewState extends State<AuthView> {
               backgroundColor: Colors.green,
             ),
           );
-          Navigator.pushAndRemoveUntil(
+          Navigator.pushNamedAndRemoveUntil(
             context,
-            MaterialPageRoute(
-              builder: (_) => BlocProvider(
-                create: (context) => HomeCubit()..getProducts(),
-                child: const HomeView(),
-              ),
-            ),
+            Routes.home,
             (route) => false,
           );
         } else if (state is AuthFailure) {

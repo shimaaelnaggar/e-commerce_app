@@ -1,5 +1,5 @@
+import 'package:ecommerce_app/core/routing/routes.dart';
 import 'package:ecommerce_app/core/widgets/brand_name.dart';
-import 'package:ecommerce_app/features/onboarding/views/country_selector_view.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -26,10 +26,7 @@ class _SplashViewState extends State<SplashView>
 
     Future.delayed(const Duration(seconds: 1), () {
       if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => CountryView()),
-      );
+      Navigator.pushReplacementNamed(context, Routes.onboarding);
     });
   }
 

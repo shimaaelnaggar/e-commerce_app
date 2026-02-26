@@ -1,11 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/helpers/shared_pref.dart';
+import 'package:ecommerce_app/core/routing/routes.dart';
 import 'package:ecommerce_app/core/widgets/brand_name.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
-import 'package:ecommerce_app/features/auth/cubit/auth_cubit.dart';
-import 'package:ecommerce_app/features/auth/views/auth_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CountryView extends StatefulWidget {
   const CountryView({super.key});
@@ -36,15 +33,7 @@ class _CountryViewState extends State<CountryView> {
 
     if (!mounted) return;
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => BlocProvider<AuthCubit>(
-          create: (context) => AuthCubit(Dio()),
-          child: const AuthView(),
-        ),
-      ),
-    );
+    Navigator.pushReplacementNamed(context, Routes.auth);
   }
 
   void _showCountrySheet() {
