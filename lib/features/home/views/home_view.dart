@@ -7,32 +7,35 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
+    return BlocProvider<HomeCubit>(
+      create: (context) => HomeCubit()..getProducts(),
+      child: Scaffold(
         backgroundColor: Colors.black,
-        elevation: 0,
-        title: const Text("Home", style: TextStyle(color: Colors.white)),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Icon(Icons.shopping_cart_outlined, color: Colors.white),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSearchBar(),
-            const SizedBox(height: 20),
-            _buildCategories(),
-            const SizedBox(height: 20),
-            Expanded(child: _buildProductsGrid()),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          elevation: 0,
+          title: const Text("Home", style: TextStyle(color: Colors.white)),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: Icon(Icons.shopping_cart_outlined, color: Colors.white),
+            ),
           ],
         ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _buildSearchBar(),
+              const SizedBox(height: 20),
+              _buildCategories(),
+              const SizedBox(height: 20),
+              Expanded(child: _buildProductsGrid()),
+            ],
+          ),
+        ),
+        bottomNavigationBar: _buildBottomNav(),
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
