@@ -1,5 +1,7 @@
 import 'package:ecommerce_app/core/widgets/brand_name.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
+import 'package:ecommerce_app/features/home/cubit/home_cubit.dart';
+import 'package:ecommerce_app/features/home/views/home_view.dart';
 import 'package:ecommerce_app/features/auth/cubit/auth_cubit.dart';
 import 'package:ecommerce_app/features/auth/widgets/custom_text_form_field.dart';
 import 'package:ecommerce_app/features/auth/widgets/toggle_button.dart';
@@ -52,15 +54,30 @@ class _AuthViewState extends State<AuthView> {
       listener: (context, state) {
         if (state is AuthSuccess) {
           nameController.clear();
-      passwordController.clear();
-          ScaffoldMessenger.of(
+          passwordController.clear();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Login successful!"),
+              backgroundColor: Colors.green,
+            ),
+          );
+          Navigator.pushAndRemoveUntil(
             context,
-          ).showSnackBar(const SnackBar(content: Text("Login successful!")));
+            MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                create: (context) => HomeCubit()..getProducts(),
+                child: const HomeView(),
+              ),
+            ),
+            (route) => false,
+          );
         } else if (state is AuthFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Login failed: ${state.message}")),
+            SnackBar(
+              content: Text("Login failed: ${state.message}"),
+              backgroundColor: Colors.red,
+            ),
           );
-          print("Login failed: ${state.message}");
         }
       },
       builder: (context, state) {
