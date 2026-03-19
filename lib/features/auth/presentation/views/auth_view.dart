@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/core/routing/routes.dart';
 import 'package:ecommerce_app/core/widgets/brand_name.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
-import 'package:ecommerce_app/features/auth/cubit/auth_cubit.dart';
-import 'package:ecommerce_app/features/auth/widgets/custom_text_form_field.dart';
-import 'package:ecommerce_app/features/auth/widgets/toggle_button.dart';
+import 'package:ecommerce_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:ecommerce_app/features/auth/presentation/widgets/custom_text_form_field.dart';
+import 'package:ecommerce_app/features/auth/presentation/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

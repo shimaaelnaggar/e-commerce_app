@@ -1,8 +1,8 @@
 import 'package:ecommerce_app/core/routing/routes.dart';
-import 'package:ecommerce_app/features/auth/views/auth_view.dart';
-import 'package:ecommerce_app/features/home/views/home_view.dart';
-import 'package:ecommerce_app/features/onboarding/views/country_selector_view.dart';
-import 'package:ecommerce_app/features/splash/views/splash_view.dart';
+import 'package:ecommerce_app/features/auth/presentation/views/auth_view.dart';
+import 'package:ecommerce_app/features/home/presentation/views/home_view.dart';
+import 'package:ecommerce_app/features/onboarding/presentation/views/country_selector_view.dart';
+import 'package:ecommerce_app/features/splash/presentation/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {

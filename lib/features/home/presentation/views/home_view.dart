@@ -1,4 +1,6 @@
-import 'package:ecommerce_app/features/home/cubit/home_cubit.dart';
+import 'package:ecommerce_app/features/home/data/repos/home_repo.dart';
+import 'package:ecommerce_app/features/home/data/services/home_services.dart';
+import 'package:ecommerce_app/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +10,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
-      create: (context) => HomeCubit()..getProducts(),
+      create: (context) =>
+          HomeCubit(homeRepo: HomeRepo(homeService: HomeService()))
+            ..getProducts(),
       child: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
